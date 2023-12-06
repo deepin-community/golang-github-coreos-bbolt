@@ -1,4 +1,10 @@
 #!/usr/bin/make -f
+# -*- makefile -*-
+
+export DH_GOLANG_EXCLUDES := cmd/bbolt tests/failpoint
 
 %:
-	dh $@
+	dh $@ --builddirectory=_build --buildsystem=golang
+
+override_dh_auto_test:
+	dh_auto_test -- -short
