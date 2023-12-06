@@ -1,0 +1,33 @@
+From: Shengjing Zhu <zhsj@debian.org>
+Date: Tue, 31 Jan 2023 22:46:49 +0800
+Subject: Skip OOM tests
+
+---
+ bucket_test.go | 1 +
+ db_test.go     | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/bucket_test.go b/bucket_test.go
+index 2ac9263..1c00fe5 100644
+--- a/bucket_test.go
++++ b/bucket_test.go
+@@ -1161,6 +1161,7 @@ func TestBucket_Put_KeyTooLarge(t *testing.T) {
+ 
+ // Ensure that an error is returned when inserting a value that's too large.
+ func TestBucket_Put_ValueTooLarge(t *testing.T) {
++	t.Skip("use too much memory")
+ 	// Skip this test on DroneCI because the machine is resource constrained.
+ 	if os.Getenv("DRONE") == "true" {
+ 		t.Skip("not enough RAM for test")
+diff --git a/db_test.go b/db_test.go
+index aa7ad5e..47ecec4 100644
+--- a/db_test.go
++++ b/db_test.go
+@@ -406,6 +406,7 @@ func TestOpen_FileTooSmall(t *testing.T) {
+ // read transaction blocks the write transaction and causes deadlock.
+ // This is a very hacky test since the mmap size is not exposed.
+ func TestDB_Open_InitialMmapSize(t *testing.T) {
++	t.Skip("use too much memory")
+ 	path := tempfile()
+ 	defer os.Remove(path)
+ 

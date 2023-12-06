@@ -1,0 +1,23 @@
+From: Shengjing Zhu <i@zhsj.me>
+Date: Fri, 22 Sep 2017 23:28:00 +0800
+Subject: Increase write waiting time when testing
+
+Bug: https://github.com/etcd-io/bbolt/issues/54
+Bug-Debian: https://bugs.debian.org/832834
+---
+ db_test.go | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/db_test.go b/db_test.go
+index 7af780b..aa7ad5e 100644
+--- a/db_test.go
++++ b/db_test.go
+@@ -449,7 +449,7 @@ func TestDB_Open_InitialMmapSize(t *testing.T) {
+ 	}()
+ 
+ 	select {
+-	case <-time.After(5 * time.Second):
++	case <-time.After(180 * time.Second):
+ 		t.Errorf("unexpected that the reader blocks writer")
+ 	case err := <-done:
+ 		if err != nil {
