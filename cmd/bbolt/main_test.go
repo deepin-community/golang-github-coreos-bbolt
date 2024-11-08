@@ -3,7 +3,6 @@ package main_test
 import (
 	"bytes"
 	crypto "crypto/rand"
-	"encoding/binary"
 	"fmt"
 	"io"
 	"math/rand"
@@ -304,12 +303,6 @@ func NewMain() *Main {
 }
 
 func TestCompactCommand_Run(t *testing.T) {
-	var s int64
-	if err := binary.Read(crypto.Reader, binary.BigEndian, &s); err != nil {
-		t.Fatal(err)
-	}
-	rand.Seed(s)
-
 	dstdb := btesting.MustCreateDB(t)
 	dstdb.Close()
 
@@ -394,6 +387,33 @@ func TestCompactCommand_Run(t *testing.T) {
 	}
 	if !bytes.Equal(dbChk, dstdbChk) {
 		t.Error("the compacted db data isn't the same than the original db")
+	}
+}
+
+func TestCommands_Run_NoArgs(t *testing.T) {
+	testCases := []struct {
+		name   string
+		cmd    string
+		expErr error
+	}{
+		{
+			name:   "get",
+			cmd:    "get",
+			expErr: main.ErrNotEnoughArgs,
+		},
+		{
+			name:   "keys",
+			cmd:    "keys",
+			expErr: main.ErrNotEnoughArgs,
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			m := NewMain()
+			err := m.Run(tc.cmd)
+			require.ErrorIs(t, err, main.ErrNotEnoughArgs)
+		})
 	}
 }
 
