@@ -9,12 +9,13 @@ Uploaders: Anthony Fok <foka@debian.org>,
 Rules-Requires-Root: no
 Build-Depends: debhelper-compat (= 13),
                dh-sequence-golang,
-               golang-any (>= 2:1.17~),
+               golang-any (>= 2:1.21~),
                golang-github-stretchr-testify-dev (>= 1.8.1),
                golang-github-etcd-io-gofail-dev (>= 0.1.0),
+               golang-golang-x-sync-dev (>= 0.5.0),
                golang-golang-x-sys-dev (>= 0.4.0),
 Testsuite: autopkgtest-pkg-go
-Standards-Version: 4.6.2
+Standards-Version: 4.7.0
 Vcs-Browser: https://salsa.debian.org/go-team/packages/golang-github-coreos-bbolt
 Vcs-Git: https://salsa.debian.org/go-team/packages/golang-github-coreos-bbolt.git
 Homepage: https://github.com/etcd-io/bbolt
@@ -26,6 +27,8 @@ Package: golang-github-coreos-bbolt-dev
 Architecture: all
 Multi-Arch: foreign
 Depends: golang-github-stretchr-testify-dev (>= 1.8.1),
+         golang-github-etcd-io-gofail-dev (>= 0.1.0),
+         golang-golang-x-sync-dev (>= 0.5.0),
          golang-golang-x-sys-dev (>= 0.4.0),
          ${misc:Depends},
 Description: low-level key/value database for Go, especially CoreOS's etcd
