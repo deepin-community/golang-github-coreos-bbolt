@@ -1,0 +1,31 @@
+From 38dba0fd512b4e2531a5f3db5ca8dfc6dbe8ed97 Mon Sep 17 00:00:00 2001
+From: hudeng <hudeng@deepin.org>
+Date: Wed, 14 May 2025 10:38:44 +0800
+Subject: [PATCH] feat: add sw64 support
+
+---
+ bolt_sw64.go | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+ create mode 100644 bolt_sw64.go
+
+diff --git a/bolt_sw64.go b/bolt_sw64.go
+new file mode 100644
+index 0000000..51e7ebd
+--- /dev/null
++++ b/bolt_sw64.go
+@@ -0,0 +1,12 @@
++// +build sw64
++
++package bolt
++
++// maxMapSize represents the largest mmap size supported by Bolt.
++const maxMapSize = 0xFFFFFFFFFFFF // 256TB
++
++// maxAllocSize is the size used when creating array pointers.
++const maxAllocSize = 0x7FFFFFFF
++
++// Are unaligned load/stores broken on this arch?
++var brokenUnaligned = false
+-- 
+2.45.2
+
