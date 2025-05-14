@@ -1,3 +1,9 @@
+golang-github-coreos-bbolt (0.3.10-2deepin1) unstable; urgency=medium
+
+  * feat: add sw64 support
+
+ -- Deepin Packages Builder <packages@deepin.org>  Wed, 14 May 2025 10:39:17 +0800
+
 golang-github-coreos-bbolt (1.3.10-2) unstable; urgency=medium
 
   * Team upload
